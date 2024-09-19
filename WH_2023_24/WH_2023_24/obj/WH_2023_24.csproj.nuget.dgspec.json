@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\MainUserFlo\\RiderProjects\\WH_2023_24\\WH_2023_24\\WH_2023_24.csproj": {}
+    "C:\\Users\\MainUserFlo\\RiderProjects\\SEW_2024\\WH_2023_24\\WH_2023_24\\WH_2023_24.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MainUserFlo\\RiderProjects\\WH_2023_24\\WH_2023_24\\WH_2023_24.csproj": {
+    "C:\\Users\\MainUserFlo\\RiderProjects\\SEW_2024\\WH_2023_24\\WH_2023_24\\WH_2023_24.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MainUserFlo\\RiderProjects\\WH_2023_24\\WH_2023_24\\WH_2023_24.csproj",
+        "projectUniqueName": "C:\\Users\\MainUserFlo\\RiderProjects\\SEW_2024\\WH_2023_24\\WH_2023_24\\WH_2023_24.csproj",
         "projectName": "WH_2023_24",
-        "projectPath": "C:\\Users\\MainUserFlo\\RiderProjects\\WH_2023_24\\WH_2023_24\\WH_2023_24.csproj",
+        "projectPath": "C:\\Users\\MainUserFlo\\RiderProjects\\SEW_2024\\WH_2023_24\\WH_2023_24\\WH_2023_24.csproj",
         "packagesPath": "C:\\Users\\MainUserFlo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MainUserFlo\\RiderProjects\\WH_2023_24\\WH_2023_24\\obj\\",
+        "outputPath": "C:\\Users\\MainUserFlo\\RiderProjects\\SEW_2024\\WH_2023_24\\WH_2023_24\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\MainUserFlo\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsApp2", "WinFormsApp2\WinFormsApp2.csproj", "{1E5351CD-3154-4580-BAA4-AFE968E38808}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsApp1", "..\..\..\..\Downloads\WinFormsApp1\WinFormsApp1\WinFormsApp1\WinFormsApp1.csproj", "{AA5E45FD-CDBF-4099-BD54-D1B63B194726}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendsLib", "FriendsLib\FriendsLib.csproj", "{A32616A1-1DD4-48D0-B5C1-EB0C6CFFBDCB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E5351CD-3154-4580-BAA4-AFE968E38808}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E5351CD-3154-4580-BAA4-AFE968E38808}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E5351CD-3154-4580-BAA4-AFE968E38808}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E5351CD-3154-4580-BAA4-AFE968E38808}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA5E45FD-CDBF-4099-BD54-D1B63B194726}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA5E45FD-CDBF-4099-BD54-D1B63B194726}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA5E45FD-CDBF-4099-BD54-D1B63B194726}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA5E45FD-CDBF-4099-BD54-D1B63B194726}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A32616A1-1DD4-48D0-B5C1-EB0C6CFFBDCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A32616A1-1DD4-48D0-B5C1-EB0C6CFFBDCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A32616A1-1DD4-48D0-B5C1-EB0C6CFFBDCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A32616A1-1DD4-48D0-B5C1-EB0C6CFFBDCB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
