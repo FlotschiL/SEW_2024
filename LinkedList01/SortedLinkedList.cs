@@ -10,10 +10,12 @@ public class SortedLinkedList:MyLinkedList
             return;
         }
         Node tmp = head;
-        while (tmp.Next != null && (toInsert.Value as IComparable).CompareTo(tmp.Value as IComparable) > 0)
+        while (tmp.Next != null && toInsert.Value > tmp.Next.Value)
         {
             tmp = tmp.Next;
-        }
-        //einfügen
+        }   
+        toInsert.Next = tmp.Next;
+        tmp.Next = toInsert;
+
     }
 }

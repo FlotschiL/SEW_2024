@@ -4,7 +4,7 @@ namespace LList;
 
 public class MyLinkedList
 {
-    public Node? head;
+    public Node head;
 
     public void InsertFront(Node newNode)
     {
