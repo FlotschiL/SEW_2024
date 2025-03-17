@@ -1,0 +1,41 @@
+@using BlazorApp1;
+@page "/TikTakToe"
+
+<PageTitle>TTT</PageTitle>
+
+<h1>This is TTT</h1>
+<div>
+    <button class="TTTButton" @onclick="() => _ttt[0, 0] = 0.ToString()">@_ttt[0,0]</button>
+    <button class="TTTButton" @onclick="() => _ttt[0, 1] = 0.ToString()">@_ttt[0,1]</button>
+    <button class="TTTButton" @onclick="() => _ttt[0, 2] = 0.ToString()">@_ttt[0,2]</button>
+</div>
+<div>
+    <button class="TTTButton" @onclick="() => _ttt[1, 0] = 0.ToString()">@_ttt[1,0]</button>
+    <button class="TTTButton" @onclick="() => _ttt[1, 1] = 0.ToString()">@_ttt[1,1]</button>
+    <button class="TTTButton" @onclick="() => _ttt[1, 2] = 0.ToString()">@_ttt[1,2]</button>
+</div>
+<div>
+    <button class="TTTButton" @onclick="() => _ttt[2, 0] = 0.ToString()">@_ttt[2,0]</button>
+    <button class="TTTButton" @onclick="() => _ttt[2, 1] = 0.ToString()">@_ttt[2,1]</button>
+    <button class="TTTButton" @onclick="() => _ttt[2, 2] = 0.ToString()">@_ttt[2,2]</button>
+</div>
+<h1>@_ttt.GameState</h1>
+<h1>Player: @state()</h1>
+
+<button class="btn btn-primary" @onclick="reset">reset</button>
+
+
+
+
+@code{
+    TTT _ttt = new TTT();
+    public void reset()
+    {
+        _ttt = new TTT();
+    }
+
+    public string state()
+    {
+        return _ttt.Turn == 1 ? "x" : "o";
+    }
+}
