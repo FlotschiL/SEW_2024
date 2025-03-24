@@ -4,6 +4,20 @@ html, body {
 .TTTButton{
     
 }
+.connect4-grid {
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.connect4-grid td {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    border: 2px solid black;
+    font-size: 24px;
+    font-weight: bold;
+}
 h1:focus {
     outline: none;
 }
