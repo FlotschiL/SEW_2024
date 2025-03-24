@@ -10,8 +10,10 @@
         <tr>
             @for (int x = 0; x < 7; x++)
             {
-                <td>
-                    asdf
+                int localX = x; // Create local copies
+                int localY = y;
+                <td @onclick="() => Set(localX, localY)">
+                    @Conn4[localX,localY]
                 </td>
             }
         </tr>
@@ -25,12 +27,12 @@
 
 @code{
     
-     //VierGewinnt Conn4 = new();
+    Connect4 Conn4 = new();//!!! Achtung darf nicht gleich wie die Page heißen sonst böse!!!!!!!!!!!
 
-    /*public void Set(int x, int y)
+    private void Set(int x, int y)
     {
         Conn4.Set(x, y);
-    }*/
+    }
 
     //protected string this[int i, int i1] => Conn4[i, i1];
 }

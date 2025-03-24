@@ -54,6 +54,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp1", "BlazorApp1\Bl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSON", "JSON\JSON.csproj", "{ABC3371F-7007-483F-BB6A-07568E88240B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorGamesTest", "BlazorGamesTest\BlazorGamesTest.csproj", "{2E448779-5BE3-4FDC-9126-34E077E775FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -144,6 +146,10 @@ Global
 		{ABC3371F-7007-483F-BB6A-07568E88240B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABC3371F-7007-483F-BB6A-07568E88240B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABC3371F-7007-483F-BB6A-07568E88240B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E448779-5BE3-4FDC-9126-34E077E775FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E448779-5BE3-4FDC-9126-34E077E775FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E448779-5BE3-4FDC-9126-34E077E775FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E448779-5BE3-4FDC-9126-34E077E775FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{87C60ABC-2624-402A-80C5-FA2ADC187EC5} = {33F43297-CA4A-46AF-A92E-B8D47C6823CB}
