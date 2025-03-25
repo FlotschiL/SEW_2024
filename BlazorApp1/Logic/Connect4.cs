@@ -31,8 +31,9 @@ public class Connect4 : AWinner, IGame
         }
     }
 
-    public string? Winner { get; }
-    public string? NextPlayer { get; }
+    public string? Winner { get; private set; } = "No Winner / Draw";
+    public string? NextPlayer => Turn.ToString();
+
     public void Set(int col, int row)
     {
         Set(col);
@@ -47,9 +48,8 @@ public class Connect4 : AWinner, IGame
             {
                 Field[col, row] = Turn; // Place piece
                 Turn = Turn == 'X' ? 'O' : 'X'; // Switch turn
-                CheckWinner();
-                Debug.WriteLine("WinnerChecked");
-
+                Winner = CheckWinner();
+                
                 return;
             }
         }
@@ -57,7 +57,7 @@ public class Connect4 : AWinner, IGame
     
     protected override string? HorizontalWinner()
     {
-        for (int row = 0; row < Field.GetLength(0); row++)
+        for (int row = 0; row < Field.GetLength(1); row++)
         {
             for (int col = 0; col <= 3; col++) // Only check up to column 3 (7-4)
             {
@@ -76,7 +76,7 @@ public class Connect4 : AWinner, IGame
 
     protected override string? VerticalWinner()
     {
-        for (int col = 0; col < Field.GetLength(1); col++)
+        for (int col = 0; col < Field.GetLength(0); col++)
         {
             for (int row = 0; row <= 2; row++) // Only check up to column 3 (7-4)
             {
@@ -99,13 +99,13 @@ public class Connect4 : AWinner, IGame
         {
             for (int x = 0; x <= 3; x++) // Only check up to column 3
             {
-                char player = Field[y, x];
+                char player = Field[x, y];
                 if (player != EmptyCell &&
-                    player == Field[y - 1, x + 1] &&
-                    player == Field[y - 2, x + 2] &&
-                    player == Field[y - 3, x + 3])
+                    player == Field[x + 1, y - 1] &&
+                    player == Field[x + 2, y - 2] &&
+                    player == Field[x + 3, y - 3])
                 {
-                    return $"Winner: {player} (Diagonal \\)";
+                    return $"Winner: {player} (Diagonal /)";
                 }
             }
         }
@@ -118,13 +118,13 @@ public class Connect4 : AWinner, IGame
         {
             for (int x = 0; x <= 3; x++) // Only check up to column 3
             {
-                char player = Field[y, x];
+                char player = Field[x, y];
                 if (player != EmptyCell &&
-                    player == Field[y + 1, x + 1] &&
-                    player == Field[y + 2, x + 2] &&
-                    player == Field[y + 3, x + 3])
+                    player == Field[x + 1, y + 1] &&
+                    player == Field[x + 2, y + 2] &&
+                    player == Field[x + 3, y + 3])
                 {
-                    return $"Winner: {player} (Diagonal /)";
+                    return $"Winner: {player} (Diagonal \\)";
                 }
             }
         }
