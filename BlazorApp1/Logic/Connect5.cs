@@ -45,7 +45,7 @@ public class Connect5 : AWinner, IGame
             Field[col, row] = Turn;
             Turn = Turn == 'X' ? 'O' : 'X';
             Flags.Add(new Point(col, row));
-            CheckWinner();
+            Winner = CheckWinner();
             Debug.WriteLine(CheckWinner());
             
         }
@@ -89,7 +89,7 @@ public class Connect5 : AWinner, IGame
                     player == Field[col, row + 3]&&
                     player == Field[col, row + 4])
                 {
-                    return $"Winner: {player} (Horizontal)";
+                    return $"Winner: {player} (Vertical     )";
                 }
             }
         }
@@ -98,9 +98,9 @@ public class Connect5 : AWinner, IGame
 
     protected override string? DiagonalWinner1() // Checks diagonals from bottom-left to top-right
     {
-        for (int y = 3; y < 6; y++) // Start from row 3 to ensure enough space upwards
+        for (int y = 5; y < 15; y++) // Start from row 3 to ensure enough space upwards
         {
-            for (int x = 0; x <= 3; x++) // Only check up to column 3
+            for (int x = 0; x <= 10; x++) // Only check up to column 3
             {
                 char player = Field[x, y];
                 if (player != EmptyCell &&
@@ -118,9 +118,9 @@ public class Connect5 : AWinner, IGame
 
     protected override string? DiagonalWinner2() // Checks diagonals from top-left to bottom-right
     {
-        for (int y = 0; y <= 2; y++) // Only check up to row 2
+        for (int y = 0; y <= 10; y++) // Only check up to row 2
         {
-            for (int x = 0; x <= 3; x++) // Only check up to column 3
+            for (int x = 0; x <= 10; x++) // Only check up to column 3
             {
                 char player = Field[x, y];
                 if (player != EmptyCell &&
