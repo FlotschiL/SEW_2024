@@ -4,7 +4,7 @@ using System.Net.NetworkInformation;
 
 namespace BlazorApp1;
 
-public class Connect5 : AWinner, IGame
+public class Connect5_Flags : IGame
 {
     public char[,] Field = new char[15, 15];//col row
     protected char EmptyCell = '\0';
@@ -13,11 +13,11 @@ public class Connect5 : AWinner, IGame
     public char Turn = 'X';
     public GameState GameState = GameState.Going;
     private List<Point> Flags = new ();
-    public Connect5()
+    public Connect5_Flags()
     {
         Debug.Write("Connect4");
-        for (var index0 = 0; index0 < Field.GetLength(0); index0++)
-        for (var index1 = 0; index1 < Field.GetLength(1); index1++)
+        for (var index0 = 0; index0 < Field.GetUpperBound(0); index0++)
+        for (var index1 = 0; index1 < Field.GetUpperBound(1); index1++)
         {
             var item = Field[index0, index1];
             item = EmptyCell;
@@ -45,58 +45,65 @@ public class Connect5 : AWinner, IGame
             Field[col, row] = Turn;
             Turn = Turn == 'X' ? 'O' : 'X';
             Flags.Add(new Point(col, row));
+            Debug.WriteLine("added points");
             Winner = CheckWinner();
-            Debug.WriteLine(CheckWinner());
+            Debug.WriteLine(Winner);
             
         }
     }
 
+    public string CheckWinner()
+    {
+        foreach (var flag in Flags)
+        {
+            string? w = HorizontalWinner(flag.X, flag.Y);
+            //if (w == null) w = VerticalWinner(flag.X, flag.Y);
+            //if (w == null) w = DiagonalWinner1();
+            //if (w == null) w = DiagonalWinner2();
+            if (w == null)
+                return "No Winner / Draw";
+        }
+
+
+        return null;
+    }
     private bool IsInField(int col, int row)
     {
-        return (col < Field.GetLength(0) && row < Field.GetLength(1));
+        return (col < Field.GetUpperBound(0) && row < Field.GetUpperBound(1));
     }
 
-    protected override string? HorizontalWinner()
+    protected string? HorizontalWinner(int col, int row)
     {
-        for (int row = 0; row < Field.GetLength(1); row++)
+        char player = Field[col, row];
+        if (player == EmptyCell)
         {
-            for (int col = 0; col <= 10; col++) // Only check up to column 3 (7-4)
+            return null;
+        }
+        for (var i = col; i <= Field.GetUpperBound(0) && i <= col + 4; i++)
+        {
+            Debug.WriteLine($"({i}|{row})");
+            if (player != Field[i, row])
             {
-                char player = Field[col, row];
-                if (player != EmptyCell &&
-                    player == Field[col + 1, row] &&
-                    player == Field[col + 2, row] &&
-                    player == Field[col + 3, row] &&
-                    player == Field[col + 4, row])
-                {
-                    return $"Winner: {player} (Horizontal)";
-                }
+                return null;
             }
         }
+        for (var i = col; i >= 0 && i >= col - 4; i++)
+        {
+            if (player != Field[i, row])
+            {
+                return null;
+            }
+        }
+        return $"Winner: {player} (---)";
+    }
+
+    protected string? VerticalWinner(int col, int row)
+    {
+        
         return null;
     }
 
-    protected override string? VerticalWinner()
-    {
-        for (int col = 0; col < Field.GetLength(0); col++)
-        {
-            for (int row = 0; row <= 10; row++) // Only check up to column 3 (7-4)
-            {
-                char player = Field[col, row];
-                if (player != EmptyCell &&
-                    player == Field[col, row + 1] &&
-                    player == Field[col, row + 2] &&
-                    player == Field[col, row + 3]&&
-                    player == Field[col, row + 4])
-                {
-                    return $"Winner: {player} (Vertical)";
-                }
-            }
-        }
-        return null;
-    }
-
-    protected override string? DiagonalWinner1() // Checks diagonals from bottom-left to top-right
+    protected string? DiagonalWinner1() // Checks diagonals from bottom-left to top-right
     {
         for (int y = 5; y < 15; y++) // Start from row 3 to ensure enough space upwards
         {
@@ -116,7 +123,7 @@ public class Connect5 : AWinner, IGame
         return null;
     }
 
-    protected override string? DiagonalWinner2() // Checks diagonals from top-left to bottom-right
+    protected string? DiagonalWinner2() // Checks diagonals from top-left to bottom-right
     {
         for (int y = 0; y <= 10; y++) // Only check up to row 2
         {

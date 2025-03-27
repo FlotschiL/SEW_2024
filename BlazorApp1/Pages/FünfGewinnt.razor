@@ -1,3 +1,4 @@
+@using System.Diagnostics
 @using BlazorApp1;
 @page "/FünfGewinnt"
 
@@ -28,7 +29,7 @@
 
 @code{
     
-    Connect5 Conn5 = new();//!!! Achtung darf nicht gleich wie die Page heißen sonst böse!!!!!!!!!!!
+    Connect5_Flags Conn5 = new();//!!! Achtung darf nicht gleich wie die Page heißen sonst böse!!!!!!!!!!!
 
     private void Set(int x, int y)
     {
@@ -36,6 +37,7 @@
         {
             Conn5.Set(x, y);
         }
+        Console.Write("asdf");
     }
 
     public void reset()
