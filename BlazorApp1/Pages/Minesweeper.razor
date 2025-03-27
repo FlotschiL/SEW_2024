@@ -1,6 +1,5 @@
-@using System.Diagnostics
 @using BlazorApp1;
-@page "/FünfGewinnt"
+@page "/Minesweeper"
 
 <PageTitle>FünfGewinnt</PageTitle>
 
@@ -29,11 +28,11 @@
 
 @code{
     
-    Connect5_Flags Conn5 = new();//!!! Achtung darf nicht gleich wie die Page heißen sonst böse!!!!!!!!!!!
+    Connect5 Conn5 = new();//!!! Achtung darf nicht gleich wie die Page heißen sonst böse!!!!!!!!!!!
 
     private void Set(int x, int y)
     {
-        if (Conn5.Winner == GameState.Going.ToString())
+        if (Conn5.Winner == "No Winner / Draw")
         {
             Conn5.Set(x, y);
         }
@@ -44,4 +43,5 @@
         Conn5 = new();
     }
 
+    //protected string this[int i, int i1] => Conn4[i, i1];
 }

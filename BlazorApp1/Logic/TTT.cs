@@ -2,8 +2,8 @@ namespace BlazorApp1;
 
 public enum GameState
 {
-    Player1Wins,
-    Player2Wins,
+    PlayerXWins,
+    PlayerOWins,
     Going
 }
 public class TTT
@@ -23,12 +23,12 @@ public class TTT
             int colsum = Field[i, 0] + Field[i, 1] + Field[i, 2];
             if (rowsum == 3 || colsum == 3|| diag1 == 3 || diag2 == 3)
             {
-                GameState = GameState.Player1Wins;
+                GameState = GameState.PlayerXWins;
                 return;
             }
             else if (rowsum == -3 || colsum == -3 || diag1 == -3 || diag2 == -3)
             {
-                GameState = GameState.Player2Wins;
+                GameState = GameState.PlayerOWins;
                 return;
             }
             GameState = GameState.Going;

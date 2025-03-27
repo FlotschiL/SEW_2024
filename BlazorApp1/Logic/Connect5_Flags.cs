@@ -11,31 +11,37 @@ public class Connect5_Flags : IGame
     //1 is player 1; -1 is player 2;
     //0 is nothing
     public char Turn = 'X';
-    public GameState GameState = GameState.Going;
+    private GameState _gameState = GameState.Going;
     private List<Point> Flags = new ();
     public Connect5_Flags()
     {
-        Debug.Write("Connect4");
+        Console.Write("Connect4");
         for (var index0 = 0; index0 < Field.GetUpperBound(0); index0++)
         for (var index1 = 0; index1 < Field.GetUpperBound(1); index1++)
         {
             var item = Field[index0, index1];
             item = EmptyCell;
         }
-        Debug.Write("Finished");
+        Console.Write("Finished");
     }
     public string this[int x, int y]
     {
         get
         {
-            Debug.Write("GETTER");
             return Field[x, y].ToString();
         }
     }
 
-    
 
-    public string? Winner { get; private set; } = "No Winner / Draw";
+
+    public string? Winner
+    {
+        get
+        {
+            return _gameState.ToString();
+        }
+    }
+
     public string? NextPlayer => Turn.ToString();
 
     public void Set(int col, int row)
@@ -45,56 +51,77 @@ public class Connect5_Flags : IGame
             Field[col, row] = Turn;
             Turn = Turn == 'X' ? 'O' : 'X';
             Flags.Add(new Point(col, row));
-            Debug.WriteLine("added points");
-            Winner = CheckWinner();
-            Debug.WriteLine(Winner);
+            Console.WriteLine("added points");
+            Console.WriteLine("------------");
+            showPoints();
+            Console.WriteLine("------------");
+            _gameState = CheckWinner();
             
         }
     }
 
-    public string CheckWinner()
+    void showPoints()
     {
+        foreach (var item in Flags)
+        {
+            Console.WriteLine($"({item.X}|{item.Y})");
+        }
+    }
+    public GameState CheckWinner()
+    {
+        GameState w = GameState.Going;
         foreach (var flag in Flags)
         {
-            string? w = HorizontalWinner(flag.X, flag.Y);
-            //if (w == null) w = VerticalWinner(flag.X, flag.Y);
-            //if (w == null) w = DiagonalWinner1();
-            //if (w == null) w = DiagonalWinner2();
-            if (w == null)
-                return "No Winner / Draw";
+            
+             w = LineWinner(flag.X, flag.Y, Field.GetUpperBound(0));
+             Console.WriteLine($"Pos: ({flag.X}|{flag.Y}) {w}");
+             if (w == GameState.Going) w = LineWinner(flag.Y, flag.X, Field.GetUpperBound(1));
+             //if (w == null) w = DiagonalWinner1();
+             //if (w == null) w = DiagonalWinner2();
+             if (w != GameState.Going)
+             {
+                 return w;
+             }
+
         }
-
-
-        return null;
-    }
-    private bool IsInField(int col, int row)
-    {
-        return (col < Field.GetUpperBound(0) && row < Field.GetUpperBound(1));
+        return GameState.Going;
     }
 
-    protected string? HorizontalWinner(int col, int row)
+    protected GameState LineWinner(int col, int row, int upperBound)
     {
+        bool WonPos = true;
         char player = Field[col, row];
         if (player == EmptyCell)
         {
-            return null;
+            return GameState.Going;
         }
-        for (var i = col; i <= Field.GetUpperBound(0) && i <= col + 4; i++)
+
+
+        for (var i = col; i <= upperBound && i <= col + 4; i++)
         {
-            Debug.WriteLine($"({i}|{row})");
+            if (col == 0 && row == 0)
+            {
+                Console.WriteLine($"Pos: ({i}|{row})");
+            }
             if (player != Field[i, row])
             {
-                return null;
+                WonPos = false;
+                break;
             }
         }
-        for (var i = col; i >= 0 && i >= col - 4; i++)
+
+        if (!WonPos)
         {
-            if (player != Field[i, row])
+            for (var i = col; i >= 0 && i >= col - 4; i++)
             {
-                return null;
+                if (player != Field[i, row])
+                { 
+                    return GameState.Going;
+                }
             }
         }
-        return $"Winner: {player} (---)";
+
+        return player == 'X' ? GameState.PlayerXWins : GameState.PlayerOWins;
     }
 
     protected string? VerticalWinner(int col, int row)
