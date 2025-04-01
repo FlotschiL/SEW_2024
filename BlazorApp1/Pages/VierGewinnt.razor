@@ -1,0 +1,46 @@
+@page "/VierGewinnt"
+
+<PageTitle>VierGewinnt</PageTitle>
+
+<h1>This is VierGewinnt</h1>
+<table class="connect4-grid">
+    @for (int y = 0; y < 6; y++)
+    {
+        <tr>
+            @for (int x = 0; x < 7; x++)
+            {
+                int localX = x; // Create local copies
+                int localY = y;
+                <td @onclick="() => Set(localX, localY)">
+                    @Conn4[localX,localY]
+                </td>
+            }
+        </tr>
+    }
+</table>
+<h1>Turn: @Conn4.NextPlayer</h1>
+<h1>Winner: @Conn4.Winner</h1>
+<button class="btn btn-primary" @onclick="reset">reset</button>
+
+
+
+
+@code{
+    
+    Connect4 Conn4 = new();//!!! Achtung darf nicht gleich wie die Page heißen sonst böse!!!!!!!!!!!
+
+    private void Set(int x, int y)
+    {
+        if (Conn4.Winner == "No Winner / Draw")
+        {
+            Conn4.Set(x, y);
+        }
+    }
+
+    public void reset()
+    {
+        Conn4 = new();
+    }
+
+    //protected string this[int i, int i1] => Conn4[i, i1];
+}
