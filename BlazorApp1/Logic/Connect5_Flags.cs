@@ -76,8 +76,7 @@ public class Connect5_Flags : IGame
              w = LineWinner(flag.X, flag.Y, Field.GetUpperBound(0));
              Console.WriteLine($"Pos: ({flag.X}|{flag.Y}) {w}");
              if (w == GameState.Going) w = LineWinner(flag.Y, flag.X, Field.GetUpperBound(1));
-             //if (w == null) w = DiagonalWinner1();
-             //if (w == null) w = DiagonalWinner2();
+             if (w == GameState.Going) w = DiagonalWinner(flag.X, flag.Y, Field.GetUpperBound(0), Field.GetUpperBound(1));
              if (w != GameState.Going)
              {
                  return w;
@@ -124,49 +123,47 @@ public class Connect5_Flags : IGame
         return player == 'X' ? GameState.PlayerXWins : GameState.PlayerOWins;
     }
 
-    protected string? VerticalWinner(int col, int row)
+    protected GameState DiagonalWinner(int col, int row, int colBound, int rowBound)
     {
-        
-        return null;
+        char player = Field[col, row];
+        if (player == EmptyCell)
+        {
+            return GameState.Going;
+        }
+
+        int count;
+
+        // Check diagonal ↘ (bottom-left to top-right)
+        count = 1;
+        for (int i = 1; col + i <= colBound && row + i <= rowBound && Field[col + i, row + i] == player; i++)
+        {
+            count++;
+        }
+        for (int i = 1; col - i >= 0 && row - i >= 0 && Field[col - i, row - i] == player; i++)
+        {
+            count++;
+        }
+        if (count >= 5)
+        {
+            return player == 'X' ? GameState.PlayerXWins : GameState.PlayerOWins;
+        }
+
+        // Check diagonal ↙ (top-left to bottom-right)
+        count = 1;
+        for (int i = 1; col + i <= colBound && row - i >= 0 && Field[col + i, row - i] == player; i++)
+        {
+            count++;
+        }
+        for (int i = 1; col - i >= 0 && row + i <= rowBound && Field[col - i, row + i] == player; i++)
+        {
+            count++;
+        }
+        if (count >= 5)
+        {
+            return player == 'X' ? GameState.PlayerXWins : GameState.PlayerOWins;
+        }
+
+        return GameState.Going;
     }
 
-    protected string? DiagonalWinner1() // Checks diagonals from bottom-left to top-right
-    {
-        for (int y = 5; y < 15; y++) // Start from row 3 to ensure enough space upwards
-        {
-            for (int x = 0; x <= 10; x++) // Only check up to column 3
-            {
-                char player = Field[x, y];
-                if (player != EmptyCell &&
-                    player == Field[x + 1, y - 1] &&
-                    player == Field[x + 2, y - 2] &&
-                    player == Field[x + 3, y - 3] &&
-                    player == Field[x + 4, y - 4])
-                {
-                    return $"Winner: {player} (Diagonal /)";
-                }
-            }
-        }
-        return null;
-    }
-
-    protected string? DiagonalWinner2() // Checks diagonals from top-left to bottom-right
-    {
-        for (int y = 0; y <= 10; y++) // Only check up to row 2
-        {
-            for (int x = 0; x <= 10; x++) // Only check up to column 3
-            {
-                char player = Field[x, y];
-                if (player != EmptyCell &&
-                    player == Field[x + 1, y + 1] &&
-                    player == Field[x + 2, y + 2] &&
-                    player == Field[x + 3, y + 3] &&
-                    player == Field[x + 4, y + 4])
-                {
-                    return $"Winner: {player} (Diagonal \\)";
-                }
-            }
-        }
-        return null;
-    }
 }
