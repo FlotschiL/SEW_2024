@@ -6,53 +6,86 @@ namespace BlazorApp1;
 
 public class MineManager :  IGame
 {
-    public char[,] Field = new char[15, 15];//col row
-    protected char EmptyCell = '\0';
-    //1 is player 1; -1 is player 2;
-    //0 is nothing
-    public char Turn = 'X';
+    private Square[,] _field = new Square[15, 15];//col row
     public GameState GameState = GameState.Going;
-    private List<Point> Flags = new ();
+    private Tuple<int, int>[] checkHelper = new Tuple<int, int>[]
+    {
+        new Tuple<int, int>(-1, -1),
+        new Tuple<int, int>(0, 1),
+        new Tuple<int, int>(1, 1),
+        new Tuple<int, int>(1, 0),
+        new Tuple<int, int>(1, -1),
+        new Tuple<int, int>(0, -1),
+        new Tuple<int, int>(-1, 1),
+        new Tuple<int, int>(-1, 0),
+    };
     public MineManager()
     {
-        Debug.Write("Connect4");
-        for (var index0 = 0; index0 < Field.GetLength(0); index0++)
-        for (var index1 = 0; index1 < Field.GetLength(1); index1++)
-        {
-            var item = Field[index0, index1];
-            item = EmptyCell;
-        }
-        Debug.Write("Finished");
+        PlaceMines(10);
+        GenerateField();
     }
     public string this[int x, int y]
     {
         get
         {
             Debug.Write("GETTER");
-            return Field[x, y].ToString();
+            return _field[x, y].ToString();
         }
     }
 
-    
+    private void PlaceMines(int ammount)
+    {
+        Random rnd = new Random();
+        while (ammount > 0)
+        {
+            var (x, y) = (rnd.Next(0, _field.GetLength(0)), 
+                rnd.Next(0, _field.GetLength(1)));
+            if (_field[x, y].Value != MinesweeperSq.Bomb)
+            {
+                _field[x, y].Value = MinesweeperSq.Bomb;
+                ammount--;
+            }
+        }
+    }
+    public void GenerateField()
+    {
+        for (var index0 = 0; index0 < _field.GetLength(0); index0++)
+        {
+            for (var index1 = 0; index1 < _field.GetLength(1); index1++)
+            {
+                var item = _field[index0, index1];
+                item.Value = (MinesweeperSq)MineCount(index0, index1);
+            }
+        }
 
+    }
+
+    private int MineCount(int x, int y)
+    {
+        int count = 0;
+        foreach (var item in checkHelper)
+        {
+            if (_field[x + item.Item1, y + item.Item2].Value == MinesweeperSq.Bomb)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
     public string? Winner { get; private set; } = "No Winner / Draw";
-    public string? NextPlayer => Turn.ToString();
+    public string? NextPlayer => "asdf";
 
     public void Set(int col, int row)
     {
-        if (Field[col, row] == EmptyCell)
+        if (!_field[col, row].IsCovered)
         {
-            Field[col, row] = Turn;
-            Turn = Turn == 'X' ? 'O' : 'X';
-            Flags.Add(new Point(col, row));
-            //Winner = CheckWinner();
-            //Debug.WriteLine(CheckWinner());
-            
+            _field[col, row].IsCovered = false;
+            if (_field[col, row].Value == MinesweeperSq.Bomb)
+            {
+                //game aus
+            }
+
         }
     }
-
-    private bool IsInField(int col, int row)
-    {
-        return (col < Field.GetLength(0) && row < Field.GetLength(1));
-    }
+    
 }

@@ -1,8 +1,8 @@
 @page "/Minesweeper"
 
-<PageTitle>FünfGewinnt</PageTitle>
+<PageTitle>Minesweeper</PageTitle>
 
-<h1>This is FünfGewinnt</h1>
+<h1>This is Minesweeper</h1>
 <table class="connect4-grid">
     @for (int y = 0; y < 15; y++)
     {
@@ -18,8 +18,7 @@
         </tr>
     }
 </table>
-<h1>Turn: @Conn5.NextPlayer</h1>
-<h1>Winner: @Conn5.Winner</h1>
+<h1>Status: @Conn5.Winner</h1>
 <button class="btn btn-primary" @onclick="reset">reset</button>
 
 
