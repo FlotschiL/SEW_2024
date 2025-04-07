@@ -1,4 +1,5 @@
 @page "/Minesweeper"
+@using System.Drawing
 
 <PageTitle>Minesweeper</PageTitle>
 
@@ -11,34 +12,44 @@
             {
                 int localX = x; // Create local copies
                 int localY = y;
-                <td @onclick="() => Set(localX, localY)">
-                    @Conn5[localX,localY]
+                <td @onclick="() => Set(localX, localY)" style="color: 
+                    @ColorTranslator.ToHtml(ColorMatcher[mine.Field[localX, localY].Value]);">
+                    @mine[localX,localY]
                 </td>
             }
         </tr>
     }
 </table>
-<h1>Status: @Conn5.Winner</h1>
+<h1>Status: @mine.Winner</h1>
 <button class="btn btn-primary" @onclick="reset">reset</button>
 
 
 
 
 @code{
-    
-    Connect5 Conn5 = new();//!!! Achtung darf nicht gleich wie die Page heißen sonst böse!!!!!!!!!!!
-
+    protected override async Task OnInitializedAsync()
+    {
+        ColorMatcher.Add(MinesweeperSq.One, Color.Blue);
+        ColorMatcher.Add(MinesweeperSq.Two, Color.Green);
+        ColorMatcher.Add(MinesweeperSq.Three, Color.Orange);
+        ColorMatcher.Add(MinesweeperSq.Four, Color.Violet);
+        ColorMatcher.Add(MinesweeperSq.Five, Color.Yellow);
+        ColorMatcher.Add(MinesweeperSq.Bomb, Color.Red);
+        ColorMatcher.Add(MinesweeperSq.None, Color.Wheat);
+    }
+    MineManager mine = new();//!!! Achtung darf nicht gleich wie die Page heißen sonst böse!!!!!!!!!!!
+    Dictionary<MinesweeperSq, Color> ColorMatcher = new Dictionary<MinesweeperSq, Color>();
     private void Set(int x, int y)
     {
-        if (Conn5.Winner == "No Winner / Draw")
+        if (mine.Winner == "No Winner / Draw")
         {
-            Conn5.Set(x, y);
+            mine.Set(x, y);
         }
     }
 
     public void reset()
     {
-        Conn5 = new();
+        mine = new();
     }
 
     //protected string this[int i, int i1] => Conn4[i, i1];

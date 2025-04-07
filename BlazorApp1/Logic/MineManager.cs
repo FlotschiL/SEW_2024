@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Net.NetworkInformation;
+using System.Runtime.InteropServices.ComTypes;
+using Microsoft.AspNetCore.Components;
 
 namespace BlazorApp1;
 
@@ -8,6 +10,7 @@ public class MineManager :  IGame
 {
     private Square[,] _field = new Square[15, 15];//col row
     public GameState GameState = GameState.Going;
+    public Square[,] Field { get { return _field; }}
     private Tuple<int, int>[] checkHelper = new Tuple<int, int>[]
     {
         new Tuple<int, int>(-1, -1),
@@ -21,6 +24,17 @@ public class MineManager :  IGame
     };
     public MineManager()
     {
+        for (var index0 = 0; index0 < _field.GetLength(0); index0++)
+        {
+            for (var index1 = 0; index1 < _field.GetLength(1); index1++)
+            {
+                Square item = new Square
+                {
+                    Value = MinesweeperSq.None
+                };
+                _field[index0, index1] = item;
+            }
+        }
         PlaceMines(10);
         GenerateField();
     }
@@ -28,8 +42,7 @@ public class MineManager :  IGame
     {
         get
         {
-            Debug.Write("GETTER");
-            return _field[x, y].ToString();
+            return _field[x, y].Value.ToString();
         }
     }
 
@@ -54,18 +67,26 @@ public class MineManager :  IGame
             for (var index1 = 0; index1 < _field.GetLength(1); index1++)
             {
                 var item = _field[index0, index1];
-                item.Value = (MinesweeperSq)MineCount(index0, index1);
+                if (item.Value == MinesweeperSq.None)
+                {
+                    item.Value = (MinesweeperSq)MineCount(index0, index1);
+                }
             }
         }
 
     }
 
+    private bool IsInBounds(int x, int y)
+    {
+        return x >= 0 && x < _field.GetLength(0) && y >= 0 && y < _field.GetLength(0);
+    }
     private int MineCount(int x, int y)
     {
         int count = 0;
         foreach (var item in checkHelper)
         {
-            if (_field[x + item.Item1, y + item.Item2].Value == MinesweeperSq.Bomb)
+            if (IsInBounds(x + item.Item1, y + item.Item2) &&
+                _field[x + item.Item1, y + item.Item2].Value == MinesweeperSq.Bomb)
             {
                 count++;
             }
