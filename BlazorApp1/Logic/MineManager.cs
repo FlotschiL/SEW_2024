@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace BlazorApp1;
 
-public class MineManager :  IGame
+public class MineManager
 {
     private Square[,] _field = new Square[15, 15];//col row
     public GameState GameState = GameState.Going;
@@ -42,7 +42,7 @@ public class MineManager :  IGame
     {
         get
         {
-            return _field[x, y].Value.ToString();
+            return _field[x, y].IsCovered ? " " : _field[x, y].Value.ToString();
         }
     }
 
@@ -93,17 +93,24 @@ public class MineManager :  IGame
         }
         return count;
     }
-    public string? Winner { get; private set; } = "No Winner / Draw";
-    public string? NextPlayer => "asdf";
+
+    public string? Winner
+    {
+        get
+        {
+            return GameState.ToString();
+        }
+    }
 
     public void Set(int col, int row)
     {
-        if (!_field[col, row].IsCovered)
+        if (_field[col, row].IsCovered)
         {
             _field[col, row].IsCovered = false;
             if (_field[col, row].Value == MinesweeperSq.Bomb)
             {
-                //game aus
+                GameState = GameState.Lost;
+                return;
             }
 
         }

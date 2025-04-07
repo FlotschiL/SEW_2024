@@ -41,7 +41,7 @@
     Dictionary<MinesweeperSq, Color> ColorMatcher = new Dictionary<MinesweeperSq, Color>();
     private void Set(int x, int y)
     {
-        if (mine.Winner == "No Winner / Draw")
+        if (mine.Winner != GameState.Lost.ToString())
         {
             mine.Set(x, y);
         }

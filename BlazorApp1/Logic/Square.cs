@@ -16,10 +16,6 @@ public enum MinesweeperSq
 public class Square
 {
     public MinesweeperSq Value { get; set; }
-    public bool IsCovered { get; set; }
-
-    public void Uncover()
-    {
-        
-    }
+    public bool IsCovered { get; set; } = true;
+    
 }

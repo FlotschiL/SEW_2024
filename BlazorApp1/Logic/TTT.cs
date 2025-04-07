@@ -4,7 +4,9 @@ public enum GameState
 {
     PlayerXWins,
     PlayerOWins,
-    Going
+    Going,
+    Won,
+    Lost
 }
 public class TTT
 {
