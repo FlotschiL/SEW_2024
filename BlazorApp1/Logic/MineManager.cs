@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices.ComTypes;
+using BlazorApp1.Pages;
 using Microsoft.AspNetCore.Components;
 
 namespace BlazorApp1;
@@ -46,6 +47,23 @@ public class MineManager
         }
     }
 
+    private void UncoverSquares(Tuple<int, int > pos)
+    {
+        if (_field[pos.Item1, pos.Item2].IsCovered && _field[pos.Item1, pos.Item2].Value == MinesweeperSq.None)
+        {
+            _field[pos.Item1, pos.Item2].IsCovered = false;
+        }
+        foreach (var helppos in checkHelper)
+        {
+            Tuple<int, int> check = new (helppos.Item1 + pos.Item1, helppos.Item2 + pos.Item2);
+            if (IsInBounds(check.Item1, check.Item2) && _field[check.Item1, check.Item2].IsCovered &&
+                _field[check.Item1, check.Item2].Value == MinesweeperSq.None)
+            {
+                _field[check.Item1, check.Item2].IsCovered = false;
+                UncoverSquares(check);
+            }
+        }
+    }
     private void PlaceMines(int ammount)
     {
         Random rnd = new Random();
