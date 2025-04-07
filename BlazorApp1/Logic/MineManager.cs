@@ -49,18 +49,15 @@ public class MineManager
 
     private void UncoverSquares(Tuple<int, int > pos)
     {
-        if (_field[pos.Item1, pos.Item2].IsCovered && _field[pos.Item1, pos.Item2].Value == MinesweeperSq.None)
-        {
-            _field[pos.Item1, pos.Item2].IsCovered = false;
-        }
+        _field[pos.Item1, pos.Item2].IsCovered = false;
         foreach (var helppos in checkHelper)
         {
             Tuple<int, int> check = new (helppos.Item1 + pos.Item1, helppos.Item2 + pos.Item2);
-            if (IsInBounds(check.Item1, check.Item2) && _field[check.Item1, check.Item2].IsCovered &&
-                _field[check.Item1, check.Item2].Value == MinesweeperSq.None)
+            if (IsInBounds(check.Item1, check.Item2) && _field[check.Item1, check.Item2].IsCovered)
             {
                 _field[check.Item1, check.Item2].IsCovered = false;
-                UncoverSquares(check);
+                if(_field[check.Item1, check.Item2].Value == MinesweeperSq.None)
+                    UncoverSquares(check);
             }
         }
     }
@@ -125,6 +122,7 @@ public class MineManager
         if (_field[col, row].IsCovered)
         {
             _field[col, row].IsCovered = false;
+            UncoverSquares(new Tuple<int, int>(col, row));
             if (_field[col, row].Value == MinesweeperSq.Bomb)
             {
                 GameState = GameState.Lost;
