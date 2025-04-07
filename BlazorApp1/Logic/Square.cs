@@ -18,4 +18,5 @@ public class Square
     public MinesweeperSq Value { get; set; }
     public bool IsCovered { get; set; } = true;
     
+    public bool IsMarked { get; set; } = false;
 }

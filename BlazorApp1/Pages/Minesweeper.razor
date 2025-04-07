@@ -12,7 +12,7 @@
             {
                 int localX = x; // Create local copies
                 int localY = y;
-                <td @onclick="() => Set(localX, localY)" style="color: 
+                <td @onclick="() => Set(localX, localY)" @ondbclick="Mark" style="color: 
                     @ColorTranslator.ToHtml(ColorMatcher[mine.Field[localX, localY].Value]);">
                     @mine[localX,localY]
                 </td>
@@ -47,6 +47,11 @@
         }
     }
 
+    private void Mark(){}
+    private void Mark(int x, int y)
+    {
+        mine.ToggleMark(x,y);
+    }
     public void reset()
     {
         mine = new();

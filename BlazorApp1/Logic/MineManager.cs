@@ -47,6 +47,10 @@ public class MineManager
         }
     }
 
+    public void ToggleMark(int x, int y)//single click
+    {
+        _field[x, y].IsMarked = !_field[x, y].IsMarked;
+    }
     private void UncoverSquares(Tuple<int, int > pos)
     {
         _field[pos.Item1, pos.Item2].IsCovered = false;
