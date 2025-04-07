@@ -1,2 +1,7 @@
+use scott;
+//BSP1:
 db.depts.find({},{_id:0})
-db.emps.find({dept_id:10},{ename:1, JOB:1, HIREDATE:1})
+//BSP2:
+db.emps.find({dept_id:10},{_id:0, ENAME:1, JOB:1, HIREDATE:1})
+//BSP3:
+db.emps.find({JOB:"MANAGER"},{_id:0, ENAME:1, JOB:1, SAL:1})
