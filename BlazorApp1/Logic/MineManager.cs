@@ -43,7 +43,12 @@ public class MineManager
     {
         get
         {
-            return _field[x, y].IsCovered ? " " : _field[x, y].Value.ToString();
+            if(!_field[x,y].IsMarked)
+                return _field[x, y].IsCovered ? " " : _field[x, y].Value.ToString();
+            else
+            {
+                return "Marked";
+            }
         }
     }
 

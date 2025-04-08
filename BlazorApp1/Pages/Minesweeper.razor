@@ -12,7 +12,7 @@
             {
                 int localX = x; // Create local copies
                 int localY = y;
-                <td @onclick="() => Set(localX, localY)" @ondbclick="Mark" style="color: 
+                <td @onclick="() => Mark(localX, localY)" @ondblclick="() => Set(localX, localY)" style="color: 
                     @ColorTranslator.ToHtml(ColorMatcher[mine.Field[localX, localY].Value]);">
                     @mine[localX,localY]
                 </td>
