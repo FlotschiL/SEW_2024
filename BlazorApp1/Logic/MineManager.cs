@@ -37,7 +37,7 @@ public class MineManager
                 Field[index0, index1] = item;
             }
         }
-        PlaceMines(10);
+        PlaceMines(56);
         GenerateField();
     }
     public string this[int x, int y]
@@ -45,10 +45,17 @@ public class MineManager
         get
         {
             if(!Field[x,y].IsMarked)
-                return Field[x, y].IsCovered ? " " : Field[x, y].Value.ToString();
+                if (Field[x, y].Value == MinesweeperSq.Bomb)
+                {
+                    return Field[x, y].IsCovered ? " " : "\ud83d\udca3";//💣💣💣
+                }
+                else
+                {
+                    return Field[x, y].IsCovered ? " " : ((int)Field[x, y].Value).ToString();
+                }
             else
             {
-                return "Marked";
+                return "\ud83d\udea9";
             }
         }
     }
