@@ -5,15 +5,16 @@
 
 <h1>This is Minesweeper</h1>
 <table class="connect4-grid">
-    @for (int y = 0; y < 15; y++)
+    @for (int y = 0; y < 20; y++)
     {
         <tr>
-            @for (int x = 0; x < 15; x++)
+            @for (int x = 0; x < 20; x++)
             {
                 int localX = x; // Create local copies
                 int localY = y;
                 <td @onclick="() => Mark(localX, localY)" @ondblclick="() => Set(localX, localY)" style="color: 
-                    @ColorTranslator.ToHtml(ColorMatcher[mine.Field[localX, localY].Value]);">
+                    @ColorTranslator.ToHtml(ColorMatcher[mine.Field[localX, localY].IsMarked ? 
+                    MinesweeperSq.None : mine.Field[localX, localY].Value]);">
                     @mine[localX,localY]
                 </td>
             }
@@ -27,6 +28,8 @@
 
 
 @code{
+    static int w = 20;
+    static int h = 20;
     protected override async Task OnInitializedAsync()
     {
         ColorMatcher.Add(MinesweeperSq.One, Color.Blue);
@@ -37,24 +40,26 @@
         ColorMatcher.Add(MinesweeperSq.Bomb, Color.Red);
         ColorMatcher.Add(MinesweeperSq.None, Color.Wheat);
     }
-    MineManager mine = new();//!!! Achtung darf nicht gleich wie die Page heißen sonst böse!!!!!!!!!!!
+    MineManager mine = new(w, h);//!!! Achtung darf nicht gleich wie die Page heißen sonst böse!!!!!!!!!!!
     Dictionary<MinesweeperSq, Color> ColorMatcher = new Dictionary<MinesweeperSq, Color>();
     private void Set(int x, int y)
     {
-        if (mine.Winner != GameState.Lost.ToString())
+        if (mine.Winner == GameState.Going.ToString())
         {
             mine.Set(x, y);
         }
     }
-
-    private void Mark(){}
+    
     private void Mark(int x, int y)
     {
-        mine.ToggleMark(x,y);
+        if (mine.Winner == GameState.Going.ToString())
+        {
+            mine.ToggleMark(x, y);
+        }
     }
     public void reset()
     {
-        mine = new();
+        mine = new(w,h);
     }
 
     //protected string this[int i, int i1] => Conn4[i, i1];

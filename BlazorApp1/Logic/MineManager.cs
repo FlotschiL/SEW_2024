@@ -10,7 +10,7 @@ namespace BlazorApp1;
 public class MineManager
 {
     private GameState _gameState = GameState.Going;
-    public Square[,] Field { get; } = new Square[15, 15];
+    public Square[,] Field { get; }
 
     private readonly Tuple<int, int>[] _checkHelper = new Tuple<int, int>[]
     {
@@ -23,8 +23,9 @@ public class MineManager
         new Tuple<int, int>(-1, 1),
         new Tuple<int, int>(-1, 0),
     };
-    public MineManager()
+    public MineManager(int width, int height)
     {
+        Field = new Square[width, height];
         for (var index0 = 0; index0 < Field.GetLength(0); index0++)
         {
             for (var index1 = 0; index1 < Field.GetLength(1); index1++)
@@ -55,6 +56,10 @@ public class MineManager
     public void ToggleMark(int x, int y)//single click
     {
         Field[x, y].IsMarked = !Field[x, y].IsMarked;
+        if (CountLeftoverBombs() == 0)
+        {
+            _gameState = GameState.Won;
+        }
     }
     
     public string? Winner
@@ -76,7 +81,6 @@ public class MineManager
                 _gameState = GameState.Lost;
                 return;
             }
-
         }
     }
     private void UncoverSquares(Tuple<int, int > pos)
@@ -122,6 +126,20 @@ public class MineManager
             }
         }
 
+    }
+
+    private int CountLeftoverBombs()
+    {
+        int count = 0;
+        foreach (Square square in Field)
+        {
+            if (square.Value == MinesweeperSq.Bomb &&
+                !square.IsMarked)
+            {
+                count++;
+            }
+        }
+        return count;
     }
     private bool IsInBounds(int x, int y)
     {
