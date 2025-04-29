@@ -139,6 +139,14 @@ public class MineManager
 
     }
 
+    private int maxMines = 0;
+    public string MineCounter {
+    get{
+        if(CountLeftoverBombs() > maxMines)
+            maxMines = CountLeftoverBombs();
+        return CountLeftoverBombs() + "/" + maxMines;
+    }
+}
     private int CountLeftoverBombs()
     {
         int count = 0;
