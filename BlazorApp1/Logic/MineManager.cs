@@ -92,13 +92,17 @@ public class MineManager
     }
     private void UncoverSquares(Tuple<int, int > pos)
     {
-        Field[pos.Item1, pos.Item2].IsCovered = false;
+        if (Field[pos.Item1, pos.Item2].Value != MinesweeperSq.Bomb)
+        {
+            Field[pos.Item1, pos.Item2].IsCovered = false;
+        }
         foreach (var helppos in _checkHelper)
         {
             Tuple<int, int> check = new (helppos.Item1 + pos.Item1, helppos.Item2 + pos.Item2);
             if (IsInBounds(check.Item1, check.Item2) && Field[check.Item1, check.Item2].IsCovered)
             {
-                Field[check.Item1, check.Item2].IsCovered = false;
+                if(Field[check.Item1, check.Item2].Value != MinesweeperSq.Bomb)
+                    Field[check.Item1, check.Item2].IsCovered = false;
                 if(Field[check.Item1, check.Item2].Value == MinesweeperSq.None)
                     UncoverSquares(check);
             }

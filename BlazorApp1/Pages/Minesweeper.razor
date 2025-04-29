@@ -1,10 +1,11 @@
 @page "/Minesweeper"
+@using System.Diagnostics
 @using System.Drawing
 
 <PageTitle>Minesweeper</PageTitle>
 
 <h1>This is Minesweeper</h1>
-<table class="connect4-grid">
+<table class="connect4-grid" @onkeydown="HandleKey" @onkeyup="HandleKey" tabindex="0">
     @for (int y = 0; y < 20; y++)
     {
         <tr>
@@ -12,7 +13,7 @@
             {
                 int localX = x; // Create local copies
                 int localY = y;
-                <td @onclick="() => Mark(localX, localY)" @ondblclick="() => Set(localX, localY)" style="color: 
+                <td @onclick="() => Set(localX, localY)" style="color: 
                     @ColorTranslator.ToHtml(ColorMatcher[mine.Field[localX, localY].IsCovered ? 
                     MinesweeperSq.None : mine.Field[localX, localY].Value]);">
                     @mine[localX,localY]
@@ -28,6 +29,7 @@
 
 
 @code{
+    static bool strIsPressed = false;
     static int w = 20;
     static int h = 20;
     protected override async Task OnInitializedAsync()
@@ -46,16 +48,18 @@
     {
         if (mine.Winner == GameState.Going.ToString())
         {
-            mine.Set(x, y);
+            Console.WriteLine(strIsPressed);
+            if (strIsPressed)
+                mine.ToggleMark(x, y);
+            else
+                mine.Set(x, y);
         }
     }
-    
-    private void Mark(int x, int y)
+    private void HandleKey(KeyboardEventArgs e)
     {
-        if (mine.Winner == GameState.Going.ToString())
-        {
-            mine.ToggleMark(x, y);
-        }
+        strIsPressed = e.CtrlKey;
+
+        Console.WriteLine("c");
     }
     public void reset()
     {
