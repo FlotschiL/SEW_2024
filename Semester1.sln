@@ -56,6 +56,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSON", "JSON\JSON.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorGamesTest", "BlazorGamesTest\BlazorGamesTest.csproj", "{2E448779-5BE3-4FDC-9126-34E077E775FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weather", "Weather\Weather.csproj", "{BBE2C829-CEDA-4240-863A-75983DAE2D1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -150,6 +152,10 @@ Global
 		{2E448779-5BE3-4FDC-9126-34E077E775FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E448779-5BE3-4FDC-9126-34E077E775FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E448779-5BE3-4FDC-9126-34E077E775FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBE2C829-CEDA-4240-863A-75983DAE2D1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBE2C829-CEDA-4240-863A-75983DAE2D1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBE2C829-CEDA-4240-863A-75983DAE2D1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBE2C829-CEDA-4240-863A-75983DAE2D1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{87C60ABC-2624-402A-80C5-FA2ADC187EC5} = {33F43297-CA4A-46AF-A92E-B8D47C6823CB}
