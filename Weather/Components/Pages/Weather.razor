@@ -1,13 +1,21 @@
 ﻿@page "/weather"
-@attribute [StreamRendering]
+@using System.Diagnostics
+@using Google.Protobuf.WellKnownTypes
 @using WeatherNameSpace;
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Web
+@using Mysqlx.Crud
+@using Org.BouncyCastle.Asn1.X509
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+
 <PageTitle>Weather</PageTitle>
 
 <h1>Weather</h1>
 
 <p>This component demonstrates showing data.</p>
 
-@if (forecasts == null)
+@if (_manager == null)
 {
     <p>
         <em>Loading...</em>
@@ -15,39 +23,60 @@
 }
 else
 {
+    <h1>@_manager.Debug</h1>
     <table class="table">
         <thead>
         <tr>
             <th>Date</th>
-            <th aria-label="Temperature in Celsius">Temp. (C)</th>
-            <th aria-label="Temperature in Farenheit">Temp. (F)</th>
-            <th>Summary</th>
+            <th>Temp. (C)</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        @foreach (var forecast in )
+        @foreach (var forecast in _manager)
         {
             <tr>
-                <td>@forecast.Date.ToShortDateString()</td>
-                <td>@forecast.TemperatureC</td>
-                <td>@forecast.TemperatureF</td>
-                <td>@forecast.Summary</td>
+                @foreach (var column in forecast)
+                {
+                    <td>@column</td>
+                }
+                <td>
+                    <button @onclick="@(() => Debug.WriteLine(_manager.entries.IndexOf(forecast)))">
+                        @_manager.entries.IndexOf(forecast)
+                    </button>
+                    <button @onclick="() => _manager.Delete(forecast)">Delete</button>
+                </td>
             </tr>
         }
+        <tr>
+            <td>
+                <label for="Date">Date</label>
+                <input id="Date" type="date" @bind = "Value"/>
+                <label for="Val">Date</label>
+                <input id="Val" type="number" @bind = "Value2"/>
+            </td>
+            <td>
+                <button type="button" @onclick="Add">Submit</button>
+            </td>
+        </tr>
+
         </tbody>
     </table>
 }
 
 @code {
+    private ForecastManager? _manager;
+    DateTime Value { get; set; }
+    int Value2 { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        // Simulate asynchronous loading to demonstrate streaming rendering
-        await Task.Delay(500);
-
-        var startDate = DateOnly.FromDateTime(DateTime.Now);
-        var summaries = new[] { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
+        _manager = new();
+        _manager.Initialize();
     }
     
-
+    private void Add()
+    {
+        _manager.Add(new Forecast(Value, Value2.ToString()));
+    }
 }
