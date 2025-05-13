@@ -56,7 +56,14 @@ public class ForecastManager : IEnumerable<Forecast>
 
     public void Update(Forecast fc)
     {
-        
+        entries.Add(fc);
+        _connection.Open();
+        using var command = new MySqlCommand("UPDATE INTO forecasts VALUES (@value1, @value2);", _connection);
+        command.Parameters.AddWithValue("@value1", fc.time.ToString("yyyy-MM-dd HH:mm:ss"));
+        command.Parameters.AddWithValue("@value2", Convert.ToInt32(fc.data[0]));
+
+        command.ExecuteNonQuery();
+        _connection.Close();
     }
     public IEnumerator<Forecast> GetEnumerator()
     {
