@@ -50,3 +50,5 @@ db.emps.find({
   JOB: 1,
   _id: 0
 });
+//BSP11
+db.emps.find({}, {ENAME: 1, COMM: 1, _id: 0}).sort({COMM: 1})
