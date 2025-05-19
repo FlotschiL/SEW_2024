@@ -57,3 +57,13 @@ db.emps.find({}, {ENAME: 1, COMM: 1, _id: 0}).sort({COMM: 1})
 
 //BSP13
 db.emps.find({ $expr: { $eq: [{ $strLenCP: "$ENAME" }, 6] } }, {ENAME: 1, _id: 0})
+//BSP14
+db.emps.aggregate([
+  { $match: { dept_id: 30 } },
+  {
+    $project: {
+      "Mitarbeiter - Tätigkeit": { $concat: ["$ENAME", " - ", "$JOB"] },
+      _id: 0
+    }
+  }
+])
