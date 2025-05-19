@@ -92,3 +92,17 @@ db.emps.aggregate([
     }
   }
 ])
+//BSP18
+db.emps.aggregate([
+  {
+    $project: {
+      COMM: { $ifNull: ["$COMM", 250] }
+    }
+  },
+  {
+    $group: {
+      _id: null,
+      averageComm: { $avg: "$COMM" }
+    }
+  }
+])
