@@ -67,3 +67,19 @@ db.emps.aggregate([
     }
   }
 ])
+
+//BSP15:
+eh wie in SQL
+ Erklärung: Ohne $ifNull wird null + number = null. Mit $ifNull (wie NVL in SQL) ersetzt man null durch 0.
+
+//BSP16
+db.emps.aggregate([
+  {
+    $project: {
+      ENAME: 1,
+      MONTHLY: "$SAL",
+      DAILY: { $divide: ["$SAL", 22] },
+      HOURLY: { $divide: [{ $divide: ["$SAL", 22] }, 8] }
+    }
+  }
+])
