@@ -83,3 +83,12 @@ db.emps.aggregate([
     }
   }
 ])
+//BSP17
+db.emps.aggregate([
+  {
+    $group: {
+      _id: null,
+      totalMonthly: { $sum: "$SAL" }
+    }
+  }
+])
