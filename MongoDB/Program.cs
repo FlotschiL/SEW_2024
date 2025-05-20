@@ -14,6 +14,7 @@ if (Console.ReadKey(true).Key == ConsoleKey.Y)
 }
 /*var people = await manager.GetAllAsync();
 foreach (var person in people)
+
     Console.WriteLine(JsonConvert.SerializeObject(person, Formatting.Indented));*/
 Dictionary<string, object?> Person = new Dictionary<string, object?>(){
 {"Name", null},
