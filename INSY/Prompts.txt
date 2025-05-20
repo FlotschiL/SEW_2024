@@ -50,3 +50,59 @@ db.emps.find({
   JOB: 1,
   _id: 0
 });
+//BSP11
+db.emps.find({}, {ENAME: 1, COMM: 1, _id: 0}).sort({COMM: 1})
+//BSP12
+//k.a.
+
+//BSP13
+db.emps.find({ $expr: { $eq: [{ $strLenCP: "$ENAME" }, 6] } }, {ENAME: 1, _id: 0})
+//BSP14
+db.emps.aggregate([
+  { $match: { dept_id: 30 } },
+  {
+    $project: {
+      "Mitarbeiter - Tätigkeit": { $concat: ["$ENAME", " - ", "$JOB"] },
+      _id: 0
+    }
+  }
+])
+
+//BSP15:
+eh wie in SQL
+ Erklärung: Ohne $ifNull wird null + number = null. Mit $ifNull (wie NVL in SQL) ersetzt man null durch 0.
+
+//BSP16
+db.emps.aggregate([
+  {
+    $project: {
+      ENAME: 1,
+      MONTHLY: "$SAL",
+      DAILY: { $divide: ["$SAL", 22] },
+      HOURLY: { $divide: [{ $divide: ["$SAL", 22] }, 8] }
+    }
+  }
+])
+//BSP17
+db.emps.aggregate([
+  {
+    $group: {
+      _id: null,
+      totalMonthly: { $sum: "$SAL" }
+    }
+  }
+])
+//BSP18
+db.emps.aggregate([
+  {
+    $project: {
+      COMM: { $ifNull: ["$COMM", 250] }
+    }
+  },
+  {
+    $group: {
+      _id: null,
+      averageComm: { $avg: "$COMM" }
+    }
+  }
+])
