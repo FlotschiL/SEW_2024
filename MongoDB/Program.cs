@@ -33,3 +33,4 @@ foreach (var prop in Person)
     while(Person[prop.Key] == null);
 }
 await manager.InsertAsync(Person);
+//manager.Test(@"C:\Users\MainUserFlo\Downloads\Nachnamen.txt");

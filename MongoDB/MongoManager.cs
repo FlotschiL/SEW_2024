@@ -93,4 +93,43 @@ public class MongoManager
 
         Console.WriteLine($"{count} random people inserted.");
     }
+    public void Test(string firstNamesPath)
+    {
+        if (!File.Exists(firstNamesPath))
+        {
+            Console.WriteLine("Name files not found.");
+            return;
+        }
+
+        var firstnames = File.ReadAllLines(firstNamesPath).OrderBy(x => Guid.NewGuid()).ToArray();
+
+        Random rng = new Random();
+
+        int count = firstnames.Length;
+        int sameCount = 0;
+        for (int i = 0; i < count; i++)
+        {
+            for (int j = 0; j < count; j++)
+            {
+                if (calculateAsciiSum(firstnames[i]) == calculateAsciiSum(firstnames[j])&&
+                    firstnames[i] != firstnames[j])
+                {
+                    sameCount++;
+                    Console.WriteLine($"Name1: {firstnames[i]}, Name2: {firstnames[j]}, Ascii: {calculateAsciiSum(firstnames[j])}");
+                }
+            }
+        }
+
+        Console.WriteLine($"{sameCount} random people inserted.");
+    }
+
+    private int calculateAsciiSum(string str)
+    {
+        int sum = 0;
+        foreach (var letter in str)
+        {
+            sum += (int)letter;
+        }
+        return sum;
+    }
 }

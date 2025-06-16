@@ -1,0 +1,5 @@
+colors = rot, grün, weiß, gelb, blau
+nations = Engländer, Spanier, Ukrainer, Norweger, Japaner
+drinks = Kaffee, Tee, Milch, Orangensaft, Wasser
+cigarettes = Old-Gold, Kools, Chesterfield, Lucky-Strike, Parliaments
+pets = Hund, Schnecken, Fuchs, Pferd, Zebra
