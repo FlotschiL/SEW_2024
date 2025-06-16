@@ -2,7 +2,7 @@ namespace BruteForceZebrarätsel;
 
 public class House(int[] nums)
 {
-    public int ID { get; set; } = nums[0];
+    public int ID { get; set; } = nums[0] +1;
     public Color Color { get; set; } = (Color)nums[1];
     public Drink Drink { get; set; } = (Drink)nums[1];
     public Animal Animal { get; set; } = (Animal)nums[1];
